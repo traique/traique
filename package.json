@@ -1,0 +1,14 @@
+{
+  "name": "traique-profile",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsx --test scripts/*.test.ts",
+    "build": "tsx scripts/build-profile.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
