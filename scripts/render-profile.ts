@@ -61,7 +61,7 @@ interface GraphQLResponse {
 }
 
 const OWNER = "traique";
-const PROJECT_NAMES = ["chatgpt-gateway", "agents-trading", "stock-portfolio", "Gemini"] as const;
+const PROJECT_NAMES = ["chatgpt-gateway", "agents-trading", "stock-portfolio", "lananh"] as const;
 const API_BASE = "https://api.github.com";
 const GRAPHQL_URL = "https://api.github.com/graphql";
 const OUTPUT_DIR = join(process.cwd(), "assets");
@@ -109,8 +109,8 @@ const fetchProjects = async (token: string): Promise<Project[]> => {
       if (repo.archived || repo.fork) throw new Error(`Configured project is not active: ${name}`);
       return {
         name: repo.name,
-        description: repo.description ?? "No description yet.",
-        language: repo.language ?? "Mixed",
+        description: repo.description ?? "Chưa có mô tả.",
+        language: repo.language ?? "Đa ngôn ngữ",
         stars: repo.stargazers_count,
         url: repo.html_url
       } satisfies Project;
@@ -140,10 +140,10 @@ export const renderMetricCard = (metric: Metric, width: number, height: number):
   baseSvg(width, height, `<rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="18" fill="#0b1020" stroke="#26304a"/><circle class="pulse" cx="${width - 24}" cy="24" r="4" fill="#22d3ee"/><text x="20" y="32" fill="#7dd3fc" font-family="monospace" font-size="12" letter-spacing="2">${esc(metric.label)}</text><text x="20" y="76" fill="white" font-family="sans-serif" font-size="32" font-weight="700">${esc(metric.value)}</text><text x="20" y="101" fill="#94a3b8" font-family="sans-serif" font-size="12">${esc(metric.detail)}</text>`);
 
 export const renderProjectCard = (project: Project, width: number, height: number): string =>
-  baseSvg(width, height, `<rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="20" fill="#0b1020" stroke="#26304a"/><rect class="scan" x="0" y="0" width="${width}" height="2" fill="url(#g)" opacity=".5"/><text x="26" y="39" fill="white" font-family="monospace" font-size="20" font-weight="700">${esc(project.name)}</text><text x="${width - 28}" y="38" text-anchor="end" fill="#67e8f9" font-family="monospace" font-size="12">${esc(project.language)}</text><text x="26" y="68" fill="#94a3b8" font-family="sans-serif" font-size="13">${esc(project.description.slice(0, 82))}</text><text x="26" y="96" fill="#cbd5e1" font-family="monospace" font-size="12">★ ${formatCount(project.stars)}  ·  LIVE REPO</text><text x="${width - 28}" y="98" text-anchor="end" fill="#67e8f9" font-family="monospace" font-size="12">OPEN →</text>`);
+  baseSvg(width, height, `<rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="20" fill="#0b1020" stroke="#26304a"/><rect class="scan" x="0" y="0" width="${width}" height="2" fill="url(#g)" opacity=".5"/><text x="26" y="39" fill="white" font-family="monospace" font-size="20" font-weight="700">${esc(project.name)}</text><text x="${width - 28}" y="38" text-anchor="end" fill="#67e8f9" font-family="monospace" font-size="12">${esc(project.language)}</text><text x="26" y="68" fill="#94a3b8" font-family="sans-serif" font-size="13">${esc(project.description.slice(0, 82))}</text><text x="26" y="96" fill="#cbd5e1" font-family="monospace" font-size="12">★ ${formatCount(project.stars)}  ·  REPO ĐANG HOẠT ĐỘNG</text><text x="${width - 28}" y="98" text-anchor="end" fill="#67e8f9" font-family="monospace" font-size="12">MỞ →</text>`);
 
 const renderHeader = (): string =>
-  baseSvg(960, 190, `<rect width="960" height="190" rx="28" fill="#070b14"/><path d="M0 155H960" stroke="#1e293b"/><path d="M0 45H960" stroke="#1e293b" opacity=".5"/><circle class="pulse" cx="884" cy="46" r="7" fill="#22d3ee" filter="url(#glow)"/><text x="44" y="58" fill="#67e8f9" font-family="monospace" font-size="12" letter-spacing="3">SYSTEM / TRAIQUE</text><text x="44" y="108" fill="white" font-family="sans-serif" font-size="42" font-weight="800">AI × AUTOMATION × TRADING</text><text x="44" y="138" fill="#94a3b8" font-family="monospace" font-size="14">building useful systems, one commit at a time.</text><text x="44" y="173" fill="#64748b" font-family="monospace" font-size="11">STATUS: ONLINE  •  VIETNAM  •  ${new Date().toISOString().slice(0, 10)}</text>`);
+  baseSvg(960, 190, `<rect width="960" height="190" rx="28" fill="#070b14"/><path d="M0 155H960" stroke="#1e293b"/><path d="M0 45H960" stroke="#1e293b" opacity=".5"/><circle class="pulse" cx="884" cy="46" r="7" fill="#22d3ee" filter="url(#glow)"/><text x="44" y="58" fill="#67e8f9" font-family="monospace" font-size="12" letter-spacing="3">HỆ THỐNG / TRAIQUE</text><text x="44" y="108" fill="white" font-family="sans-serif" font-size="42" font-weight="800">AI × TỰ ĐỘNG HÓA × GIAO DỊCH</text><text x="44" y="138" fill="#94a3b8" font-family="monospace" font-size="14">xây hệ thống thực tế, tự động hóa và vận hành liên tục.</text><text x="44" y="173" fill="#64748b" font-family="monospace" font-size="11">TRẠNG THÁI: ONLINE  •  VIỆT NAM  •  ${new Date().toISOString().slice(0, 10)}</text>`);
 
 const renderActivity = (contributions: ContributionData): string => {
   const days = contributions.contributionCalendar.weeks.flatMap((week) => week.contributionDays);
@@ -156,36 +156,28 @@ const renderActivity = (contributions: ContributionData): string => {
     return `<rect x="${x}" y="${y}" width="16" height="16" rx="4" fill="${level === 0 ? "#172033" : `url(#g)`}" opacity="${level === 0 ? ".7" : 0.35 + level * 0.15}"/>`;
   }).join("");
   const topDays = [...days].sort((a, b) => b.contributionCount - a.contributionCount).slice(0, TOP_CONTRIBUTION_DAYS);
-  return baseSvg(720, 150, `<rect x="1" y="1" width="718" height="148" rx="20" fill="#0b1020" stroke="#26304a"/><text x="24" y="28" fill="#7dd3fc" font-family="monospace" font-size="11" letter-spacing="2">CONTRIBUTION MATRIX / 12 WEEKS</text>${cells}<text x="${720 - 24}" y="72" text-anchor="end" fill="white" font-family="sans-serif" font-size="26" font-weight="700">${formatCount(contributions.contributionCalendar.totalContributions)}</text><text x="${720 - 24}" y="94" text-anchor="end" fill="#94a3b8" font-family="monospace" font-size="11">contributions / year</text><text x="${720 - 24}" y="119" text-anchor="end" fill="#64748b" font-family="monospace" font-size="10">peak day: ${topDays[0]?.date ?? "n/a"}</text>`);
+  return baseSvg(720, 150, `<rect x="1" y="1" width="718" height="148" rx="20" fill="#0b1020" stroke="#26304a"/><text x="24" y="28" fill="#7dd3fc" font-family="monospace" font-size="11" letter-spacing="2">MA TRẬN ĐÓNG GÓP / 12 TUẦN</text>${cells}<text x="${720 - 24}" y="72" text-anchor="end" fill="white" font-family="sans-serif" font-size="26" font-weight="700">${formatCount(contributions.contributionCalendar.totalContributions)}</text><text x="${720 - 24}" y="94" text-anchor="end" fill="#94a3b8" font-family="monospace" font-size="11">đóng góp / năm</text><text x="${720 - 24}" y="119" text-anchor="end" fill="#64748b" font-family="monospace" font-size="10">ngày cao nhất: ${topDays[0]?.date ?? "n/a"}</text>`);
 };
 
 const renderProjects = (projects: Project[]): string => {
-  const cards = projects.map((project, index) => renderProjectCard(project, PROJECT_WIDTH, PROJECT_HEIGHT)).map((svg) => svg.replace(/^<svg[^>]*>|<\/svg>$/g, ""));
+  const cards = projects.map((project) => renderProjectCard(project, PROJECT_WIDTH, PROJECT_HEIGHT)).map((svg) => svg.replace(/^<svg[^>]*>|<\/svg>$/g, ""));
   const content = cards.map((card, index) => `<g transform="translate(0 ${index * (PROJECT_HEIGHT + 12)})">${card}</g>`).join("");
   return baseSvg(PROJECT_WIDTH, projects.length * (PROJECT_HEIGHT + 12), content);
 };
 
 const buildReadme = (profile: GitHubProfile, contributions: ContributionData, projects: Project[]): string => {
-  const metricValues = [
-    renderMetricCard({ label: "CONTRIBUTIONS", value: formatCount(contributions.contributionCalendar.totalContributions), detail: "last 12 months" }, CARD_WIDTH, CARD_HEIGHT),
-    renderMetricCard({ label: "COMMITS", value: formatCount(contributions.totalCommitContributions), detail: "last 12 months" }, CARD_WIDTH, CARD_HEIGHT),
-    renderMetricCard({ label: "FOLLOWERS", value: formatCount(profile.followers), detail: "GitHub network" }, CARD_WIDTH, CARD_HEIGHT)
-  ];
   const metricNames = ["contributions", "commits", "network"];
   const projectLinks = projects.map((project) => `- [**${project.name}**](${project.url}) — ${project.description}`).join("\n");
-  const metricsHtml = metricValues.map((svg, index) => {
-    const name = metricNames[index];
-    return `<img src="./assets/${name}.svg" width="260" alt="${name}"/>`;
-  }).join("\n");
-  return `# traique\n\n<div align="center">\n\n<img src="./assets/header.svg" width="960" alt="AI automation trading profile header"/>\n\n${metricsHtml}\n\n<img src="./assets/activity.svg" width="720" alt="GitHub contribution activity"/>\n\n</div>\n\n## ⚡ What I build\n\nAI systems, automation, developer tooling and quantitative research workflows — with a bias toward practical products that can actually run.\n\n## 🚀 Featured systems\n\n${projectLinks}\n\n## 🧩 Stack\n\n\`Python\` · \`TypeScript\` · \`Next.js\` · \`FastAPI\` · \`Supabase\` · \`LLM Agents\` · \`GitHub Actions\` · \`Trading Systems\`\n\n## 📡 Profile engine\n\nThis profile is self-hosted: GitHub Actions refreshes the metrics and SVG artwork automatically. No external stats widget, no client-side JavaScript, no hardcoded activity numbers.\n\n<div align="center">\n\n<sub>Last render: ${new Date().toISOString()}</sub>\n\n</div>\n`;
+  const metricsHtml = metricNames.map((name) => `<img src="./assets/${name}.svg" width="260" alt="${name}"/>`).join("\n");
+  return `# traique\n\n<div align="center">\n\n<img src="./assets/header.svg" width="960" alt="Hồ sơ AI, tự động hóa và giao dịch của Traique"/>\n\n${metricsHtml}\n\n<img src="./assets/activity.svg" width="720" alt="Ma trận đóng góp GitHub"/>\n\n</div>\n\n## ⚡ Tôi xây dựng gì?\n\n**AI · Tự động hóa · Hệ thống giao dịch · Developer Tools** — tập trung vào những hệ thống thực tế, có thể triển khai và vận hành.\n\n## 🚀 4 hệ thống nổi bật\n\n<img src="./assets/projects.svg" width="720" alt="Các dự án nổi bật"/>\n\n${projectLinks}\n\n## 🧠 Tech stack\n\n\`Python\` · \`TypeScript\` · \`Next.js\` · \`FastAPI\` · \`Supabase\` · \`LLM Agents\` · \`GitHub Actions\` · \`Trading Systems\`\n\n## 📡 Hồ sơ sống\n\nCác số liệu và artwork trên trang này được **GitHub Actions tự động cập nhật mỗi 12 giờ** từ dữ liệu GitHub thực tế. Không dùng widget thống kê bên ngoài, không JavaScript phía client và không hardcode số liệu hoạt động.\n\n<div align="center">\n\n\`BUILD → MEASURE → AUTOMATE → REPEAT\`\n\n<sub>⚙️ Hồ sơ tự vận hành · cập nhật tự động · ${new Date().toISOString()}</sub>\n\n</div>\n`;
 };
 
 const writeArtifacts = async (profile: GitHubProfile, contributions: ContributionData, projects: Project[]): Promise<void> => {
   await mkdir(OUTPUT_DIR, { recursive: true });
   const metrics = [
-    ["contributions.svg", renderMetricCard({ label: "CONTRIBUTIONS", value: formatCount(contributions.contributionCalendar.totalContributions), detail: "last 12 months" }, CARD_WIDTH, CARD_HEIGHT)],
-    ["commits.svg", renderMetricCard({ label: "COMMITS", value: formatCount(contributions.totalCommitContributions), detail: "last 12 months" }, CARD_WIDTH, CARD_HEIGHT)],
-    ["network.svg", renderMetricCard({ label: "FOLLOWERS", value: formatCount(profile.followers), detail: "GitHub network" }, CARD_WIDTH, CARD_HEIGHT)],
+    ["contributions.svg", renderMetricCard({ label: "ĐÓNG GÓP", value: formatCount(contributions.contributionCalendar.totalContributions), detail: "12 tháng gần nhất" }, CARD_WIDTH, CARD_HEIGHT)],
+    ["commits.svg", renderMetricCard({ label: "COMMIT", value: formatCount(contributions.totalCommitContributions), detail: "12 tháng gần nhất" }, CARD_WIDTH, CARD_HEIGHT)],
+    ["network.svg", renderMetricCard({ label: "FOLLOWERS", value: formatCount(profile.followers), detail: "mạng lưới GitHub" }, CARD_WIDTH, CARD_HEIGHT)],
     ["header.svg", renderHeader()],
     ["activity.svg", renderActivity(contributions)],
     ["projects.svg", renderProjects(projects)]
