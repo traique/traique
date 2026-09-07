@@ -1,34 +1,40 @@
 <div align="center">
 
-<img src="./assets/header.svg" width="960" alt="AI automation trading profile header"/>
+<img src="./assets/header.svg" width="960" alt="Hồ sơ GitHub của Traique"/>
 
-<img src="./assets/contributions.svg" width="260" alt="contributions"/>
-<img src="./assets/commits.svg" width="260" alt="commits"/>
-<img src="./assets/network.svg" width="260" alt="followers"/>
+<img src="./assets/contributions.svg" width="260" alt="Đóng góp"/>
+<img src="./assets/commits.svg" width="260" alt="Commit"/>
+<img src="./assets/network.svg" width="260" alt="Mạng lưới GitHub"/>
 
-<img src="./assets/activity.svg" width="720" alt="GitHub contribution activity"/>
+<img src="./assets/activity.svg" width="720" alt="Hoạt động GitHub"/>
 
 </div>
 
-## ⚡ What I build
+## ⚡ Tôi xây dựng gì?
 
-AI systems, automation, developer tooling and quantitative research workflows — with a bias toward practical products that can actually run.
+**AI · Tự động hóa · Hệ thống giao dịch · Developer Tools** — tập trung vào những hệ thống thực tế, có thể triển khai và vận hành.
 
-## 🚀 Featured systems
+## 🚀 4 hệ thống nổi bật
 
-<img src="./assets/projects.svg" width="720" alt="featured projects"/>
+<img src="./assets/projects.svg" width="720" alt="Các dự án nổi bật"/>
 
-- [**chatgpt-gateway**](https://github.com/traique/chatgpt-gateway) — ChatGPT/Codex gateway with FastAPI, Supabase and OpenAI-compatible endpoints.
-- [**agents-trading**](https://github.com/traique/agents-trading) — multi-agent research system for Vietnamese equities.
-- [**stock-portfolio**](https://github.com/traique/stock-portfolio) — AI-assisted Vietnamese stock portfolio and market dashboard.
-- [**Gemini**](https://github.com/traique/Gemini) — personal AI assistant with Telegram, memory, tools and stock research.
+- [**chatgpt-gateway**](https://github.com/traique/chatgpt-gateway) — Gateway ChatGPT/Codex với FastAPI, Supabase và API tương thích OpenAI.
+- [**agents-trading**](https://github.com/traique/agents-trading) — hệ thống multi-agent nghiên cứu chứng khoán Việt Nam.
+- [**stock-portfolio**](https://github.com/traique/stock-portfolio) — quản lý danh mục, dữ liệu thị trường và AI phân tích cổ phiếu Việt Nam.
+- [**Gemini**](https://github.com/traique/Gemini) — trợ lý AI cá nhân với Telegram, memory, tools và stock research.
 
-## 🧩 Stack
+## 🧠 Tech stack
 
-`Python` · `TypeScript` · `Next.js` · `FastAPI` · `Supabase` · `LLM Agents` · `GitHub Actions` · `Trading Systems`
+`Python` · `TypeScript` · `Next.js` · `FastAPI` · `Supabase` · `LLM Agents` · `GitHub Actions` · `Quant Research`
 
-## 📡 Profile engine
+## 📡 Hồ sơ sống
 
-This profile is self-hosted: GitHub Actions refreshes the metrics and SVG artwork automatically. No external stats widget, no client-side JavaScript, no hardcoded activity numbers.
+Các số liệu và artwork trên trang này được **GitHub Actions tự động cập nhật mỗi 12 giờ** từ dữ liệu GitHub thực tế. Không dùng widget thống kê bên ngoài, không JavaScript phía client và không hardcode số liệu hoạt động.
 
-<div align="center"><sub>Built for GitHub • refreshed automatically</sub></div>
+<div align="center">
+
+`BUILD → MEASURE → AUTOMATE → REPEAT`
+
+<sub>⚙️ Hồ sơ tự vận hành · cập nhật tự động</sub>
+
+</div>
