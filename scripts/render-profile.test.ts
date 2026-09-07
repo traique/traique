@@ -9,16 +9,18 @@ test("formatCount keeps small counts exact and abbreviates large counts", () => 
   assert.equal(formatCount(1500000), "1.5M");
 });
 
-test("metric card renders stable SVG without external dependencies", () => {
-  const metric: Metric = { label: "COMMITS", value: "42", detail: "this year" };
+test("metric card renders self-contained animated SVG", () => {
+  const metric: Metric = { label: "COMMIT", value: "42", detail: "12 tháng gần nhất" };
   const svg = renderMetricCard(metric, 260, 120);
-  assert.match(svg, /COMMITS/);
+  assert.match(svg, /COMMIT/);
   assert.match(svg, /42/);
+  assert.match(svg, /@keyframes/);
+  assert.match(svg, /linearGradient/);
   assert.doesNotMatch(svg, /<script/i);
   assert.doesNotMatch(svg, /https?:\/\//i);
 });
 
-test("project card escapes repository text", () => {
+test("project card escapes repository text and stays self-contained", () => {
   const project: Project = {
     name: "demo<&",
     description: "A <safe> project",
@@ -30,4 +32,6 @@ test("project card escapes repository text", () => {
   assert.match(svg, /demo&lt;&amp;/);
   assert.match(svg, /A &lt;safe&gt; project/);
   assert.match(svg, /12/);
+  assert.match(svg, /MỞ/);
+  assert.doesNotMatch(svg, /<script/i);
 });
