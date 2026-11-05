@@ -9,27 +9,75 @@ on:
     paths:
       - "scripts/**"
       - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/profile.yml"
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
       - "tsconfig.json"
       - ".github/workflows/profile.yml"
 
+# Never let two renders race each other when pushing generated files.
+concurrency:
+  group: profile-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  render:
+  check:
+    name: Typecheck & test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
-      - run: npm install --no-package-lock
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
       - run: npm test
-      - run: npm run build
+
+  render:
+    name: Render & commit
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Render profile
+        run: npm run build
+        env:
+          # Optional PAT secret (read:user) also counts private contributions;
+          # falls back to the built-in token, which sees public activity only.
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit generated profile
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md assets/
-          git diff --cached --quiet || git commit -m "chore: refresh profile metrics"
-          git push
+          if git diff --cached --quiet; then
+            echo "No profile changes."
+            exit 0
+          fi
+          git commit -m "chore: refresh profile metrics"
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main && git push && exit 0
+            echo "Push attempt $attempt failed, retrying..."
+            sleep $((attempt * 5))
+          done
+          exit 1

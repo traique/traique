@@ -2,13 +2,18 @@
   "name": "traique-profile",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "test": "tsx --test scripts/*.test.ts",
+    "check": "npm run typecheck && npm test",
     "build": "tsx scripts/build-profile.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "tsx": "^4.19.0",
-    "typescript": "^5.7.0"
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
   }
 }

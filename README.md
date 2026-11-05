@@ -21,7 +21,7 @@
 - [**chatgpt-gateway**](https://github.com/traique/chatgpt-gateway) — Gateway ChatGPT/Codex với FastAPI, Supabase và API tương thích OpenAI.
 - [**agents-trading**](https://github.com/traique/agents-trading) — hệ thống multi-agent nghiên cứu chứng khoán Việt Nam.
 - [**stock-portfolio**](https://github.com/traique/stock-portfolio) — quản lý danh mục, dữ liệu thị trường và AI phân tích cổ phiếu Việt Nam.
-- [**Gemini**](https://github.com/traique/Gemini) — trợ lý AI cá nhân với Telegram, memory, tools và stock research.
+- [**lananh**](https://github.com/traique/lananh) — Trợ lý AI cá nhân đa kênh với memory, tools và pipeline nghiên cứu cổ phiếu.
 
 ## 🧠 Tech stack
 
