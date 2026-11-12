@@ -35,6 +35,6 @@ Các số liệu và artwork được **GitHub Actions tự động cập nhật
 
 `BUILD → MEASURE → AUTOMATE → REPEAT`
 
-<sub>⚙️ Hồ sơ tự vận hành · cập nhật 2026-11-11</sub>
+<sub>⚙️ Hồ sơ tự vận hành · cập nhật 2026-11-12</sub>
 
 </div>
